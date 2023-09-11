@@ -6,6 +6,7 @@ values = {'ace_low':1, 'two':2, 'three':3, 'four':4, 'five':5, 'six':6, 'seven':
 
 cards_number = 2
 money_init = 100
+busted_value = 21
 
 
 class Card:
@@ -109,7 +110,7 @@ def eval_cards(cards):
 	best = vals[0]
 
 	for value in vals:
-		  if abs(value - 21) < abs(best - 21) and value <= 21:
+		  if abs(value - busted_value) < abs(best - busted_value) and value <= busted_value:
 		    best = value
 
 	return best
@@ -133,7 +134,7 @@ while True:
 	while True:
 	  print(f'You have {str(player)}.')
 
-	  if player.value > 21:
+	  if player.value > busted_value:
 	    print("You're busted!")
 	    break
 	  else:
@@ -143,15 +144,15 @@ while True:
 	      print("Now it's dealer's turn.")
 	      break
 	
-	while player.value <= 21:
+	while player.value <= busted_value:
 	  print(f'Dealer has {str(dealer)}.')
 
-	  if dealer.value > 21:
+	  if dealer.value > busted_value:
 	    print(f'Dealer is busted!')
 	    print(f"You've won! Scored {player.value}.")
 	    player.add_money(bet*2)
 	    break
-	  elif dealer.value > player.value and dealer.value <= 21:
+	  elif dealer.value > player.value and dealer.value <= busted_value:
 	    print(f'Dealer has won!')
 	    break
 	  else:
