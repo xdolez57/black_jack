@@ -35,6 +35,7 @@ class Deck:
 class Player:
 	def __init__(self, money):
 		self.money = money
+		self.bet = 0
 		self.cards = []
 		self.value = 0
 	
@@ -42,9 +43,8 @@ class Player:
 		self.cards.append(card)
 		self.value = eval_cards(self.cards)
 	
-	def bet(self, money):
-		self.money -= money
-		return money
+	def lose_money(self):
+		self.money -= self.bet
 	
 	def add_money(self, money):
 		self.money += money
@@ -56,18 +56,15 @@ class Player:
 	def ask_bet(self):
 		while True:
 			try:
-				bet = int(input(f'What is your bet? '))
+				self.bet = int(input(f'What is your bet? '))
 			except:
 				print('Bet must be whole number!')
 			else:
-			  if bet > self.money:
+			  if self.bet > self.money:
 			    print(f'Not enough funds! You have only {self.money}.')
 			  else:
+			    print()
 			    break
-	
-		self.bet(bet)
-		print()
-		return bet
 	
 	def __str__(self):
 		if len(self.cards) == 0:
@@ -123,7 +120,7 @@ dealer = Player(0)
 while True:
 	deck = Deck()
 	print(f"You're account: {player.money}")
-	bet = player.ask_bet()
+	player.ask_bet()
 	
 	for i in range(cards_number):
 	  player.get_card(deck.deal())
@@ -135,6 +132,7 @@ while True:
 	  print(f'You have {str(player)}.')
 
 	  if player.value > busted_value:
+	    player.lose_money()
 	    print("You're busted!")
 	    break
 	  else:
@@ -148,11 +146,12 @@ while True:
 	  print(f'Dealer has {str(dealer)}.')
 
 	  if dealer.value > busted_value:
+	    player.add_money(player.bet)
 	    print(f'Dealer is busted!')
 	    print(f"You've won! Scored {player.value}.")
-	    player.add_money(bet*2)
 	    break
 	  elif dealer.value > player.value and dealer.value <= busted_value:
+	    player.lose_money()
 	    print(f'Dealer has won!')
 	    break
 	  else:
