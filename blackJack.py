@@ -89,7 +89,7 @@ def ask(question):
 	return answer == 'Y'
 
 
-def eval_cards(cards):
+def eval_cards(cards, values):
 	vals = [0]
 	aces = 0
 	best = 0
