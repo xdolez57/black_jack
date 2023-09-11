@@ -83,9 +83,9 @@ def ask(question):
 	  answer = input(f'Do you want to {question}? [Y/N] ').upper()
 
 	  if answer in ('Y', 'N'):
+	    print()
 	    break
 
-	print()
 	return answer == 'Y'
 
 
