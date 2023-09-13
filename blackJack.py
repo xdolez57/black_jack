@@ -32,7 +32,7 @@ class Deck:
 		return self.cards.pop()
 
 class Account:
-	def __init__(self, chips):
+	def __init__(self, chips = 0):
 		self.chips = chips
 		self.bet = 0
 
@@ -47,7 +47,7 @@ class Account:
 
 
 class Player:
-	def __init__(self, chips):
+	def __init__(self, chips = 0):
 		self.account = Account(chips)
 		self.cards = []
 		self.value = 0
