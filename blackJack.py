@@ -78,10 +78,7 @@ class Player:
 		if len(self.cards) == 0:
 		  return 'no cards'
 		else:
-		  cards_list = []
-
-		  for card in self.cards:
-		    cards_list.append(str(card))
+		  cards_list = [str(card) for card in self.cards]
 
 		  return ', '.join(cards_list) + f' - best value: {self.value}'
 
@@ -137,21 +134,20 @@ while True:
 	print(f'Dealer has {dealer.cards[0]}.')
 	
 	while True:
-	  print(f'You have {str(player)}.')
+	  print(f'You have {player}.')
 
 	  if player.value > busted_value:
 	    player.account.lose_chips()
 	    print("You're busted!")
 	    break
+	  elif ask('hit'):
+	    player.get_card(deck.deal())
 	  else:
-	    if ask('hit'):
-	      player.get_card(deck.deal())
-	    else:
-	      print("Now it's dealer's turn.")
-	      break
+	    print("Now it's dealer's turn.")
+	    break
 	
 	while player.value <= busted_value:
-	  print(f'Dealer has {str(dealer)}.')
+	  print(f'Dealer has {dealer}.')
 
 	  if dealer.value > busted_value:
 	    player.account.win_chips()
