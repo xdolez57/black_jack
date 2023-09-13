@@ -165,9 +165,9 @@ while True:
 	  else:
 	    dealer.get_card(deck.deal())
 	
-	print(f"You're account: {player.chips}")
+	print(f"You're account: {player.account.chips}")
 	
-	if player.chips <= 0:
+	if player.account.chips <= 0:
 	  print(f'You have no chips! Game over!')
 	  break
 	else:
