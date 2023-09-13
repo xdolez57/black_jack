@@ -39,7 +39,7 @@ class Account:
 	def lose_chips(self):
 		self.chips -= self.bet
 
-	def win_chips(self, chips):
+	def win_chips(self):
 		self.chips += self.bet
 
 	def place_bet(self, chips):
