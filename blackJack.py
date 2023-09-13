@@ -1,12 +1,14 @@
 from random import shuffle
 
 suits = ('spades', 'hearts', 'clubs', 'diamonds')
-ranks = ('ace', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'jack', 'queen', 'king')
-values = {'ace_low':1, 'two':2, 'three':3, 'four':4, 'five':5, 'six':6, 'seven':7, 'eight':8, 'nine':9, 'ten':10, 'jack':10, 'queen':10, 'king':10, 'ace_high':11}
+ranks = ('ace', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'jack',
+		 'queen', 'king')
+values = {'ace_low':1, 'two':2, 'three':3, 'four':4, 'five':5, 'six':6, 'seven':7, 'eight':8,
+          'nine':9, 'ten':10, 'jack':10, 'queen':10, 'king':10, 'ace_high':11}
 
-cards_number = 2
-chips_init = 100
-busted_value = 21
+CARDS_NUMBER = 2
+CHIPS_INIT = 100
+BUSTED_VALUE = 21
 
 
 class Card:
@@ -63,7 +65,7 @@ class Player:
     def ask_bet(self):
         while True:
             try:
-                bet = int(input(f'What is your bet? '))
+                bet = int(input('What is your bet? '))
             except:
                 print('Bet must be whole number!')
             else:
@@ -77,9 +79,9 @@ class Player:
     def __str__(self):
         if len(self.cards) == 0:
             return 'no cards'
-        else:
-            cards_list = [str(card) for card in self.cards]
-            return ', '.join(cards_list) + f' - best value: {self.value}'
+
+        cards_list = [str(card) for card in self.cards]
+        return ', '.join(cards_list) + f' - best value: {self.value}'
 
 
 def ask(question):
@@ -112,14 +114,14 @@ def eval_cards(cards, values):
 
     for value in vals:
 
-        if abs(value - busted_value) < abs(best - busted_value) and value <= busted_value:
+        if abs(value - BUSTED_VALUE) < abs(best - BUSTED_VALUE) and value <= BUSTED_VALUE:
             best = value
 
     return best
 
 
 print('Welcome in Black Jack game!')
-player = Player(chips_init)
+player = Player(CHIPS_INIT)
 dealer = Player(0)
 
 while True:
@@ -127,7 +129,7 @@ while True:
     print(f"You're account: {player.account.chips}")
     player.ask_bet()
 
-    for i in range(cards_number):
+    for i in range(CARDS_NUMBER):
         player.get_card(deck.deal())
         dealer.get_card(deck.deal())
 
@@ -136,38 +138,41 @@ while True:
     while True:
         print(f'You have {player}.')
 
-        if player.value > busted_value:
+        if player.value > BUSTED_VALUE:
             player.account.lose_chips()
             print("You're busted!")
             break
-        elif ask('hit'):
+
+        if ask('hit'):
             player.get_card(deck.deal())
         else:
             print("Now it's dealer's turn.")
             break
 
-    while player.value <= busted_value:
+    while player.value <= BUSTED_VALUE:
         print(f'Dealer has {dealer}.')
 
-        if dealer.value > busted_value:
+        if dealer.value > BUSTED_VALUE:
             player.account.win_chips()
-            print(f'Dealer is busted!')
+            print('Dealer is busted!')
             print(f"You've won! Scored {player.value}.")
             break
-        elif dealer.value > player.value:
+
+        if dealer.value > player.value:
             player.account.lose_chips()
-            print(f'Dealer has won!')
+            print('Dealer has won!')
             break
-        else:
-            dealer.get_card(deck.deal())
+
+        dealer.get_card(deck.deal())
 
     print(f"You're account: {player.account.chips}")
 
     if player.account.chips <= 0:
-        print(f'You have no chips! Game over!')
+        print('You have no chips! Game over!')
         break
-    elif not ask('play again'):
+
+    if not ask('play again'):
         break
-    else:
-        player.clear_cards()
-        dealer.clear_cards()
+
+    player.clear_cards()
+    dealer.clear_cards()
