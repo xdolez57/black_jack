@@ -5,7 +5,7 @@ ranks = ('ace', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine',
 values = {'ace_low':1, 'two':2, 'three':3, 'four':4, 'five':5, 'six':6, 'seven':7, 'eight':8, 'nine':9, 'ten':10, 'jack':10, 'queen':10, 'king':10, 'ace_high':11}
 
 cards_number = 2
-money_init = 100
+chips_init = 100
 busted_value = 21
 
 
@@ -68,7 +68,7 @@ class Player:
 				print('Bet must be whole number!')
 			else:
 			  if bet > self.account.chips:
-			    print(f'Not enough funds! You have only {self.money}.')
+			    print(f'Not enough funds! You have only {self.account.chips}.')
 			  else:
 			    self.account.bet(bet)
 			    print()
@@ -122,12 +122,12 @@ def eval_cards(cards, values):
 
 
 print('Welcome in Black Jack game!')
-player = Player(money_init)
+player = Player(chips_init)
 dealer = Player(0)
 
 while True:
 	deck = Deck()
-	print(f"You're account: {player.money}")
+	print(f"You're account: {player.account.chips}")
 	player.ask_bet()
 	
 	for i in range(cards_number):
@@ -140,7 +140,7 @@ while True:
 	  print(f'You have {str(player)}.')
 
 	  if player.value > busted_value:
-	    player.account.lose_money()
+	    player.account.lose_chips()
 	    print("You're busted!")
 	    break
 	  else:
@@ -154,21 +154,21 @@ while True:
 	  print(f'Dealer has {str(dealer)}.')
 
 	  if dealer.value > busted_value:
-	    player.account.win_money()
+	    player.account.win_chips()
 	    print(f'Dealer is busted!')
 	    print(f"You've won! Scored {player.value}.")
 	    break
 	  elif dealer.value > player.value and dealer.value <= busted_value:
-	    player.account.lose_money()
+	    player.account.lose_chips()
 	    print(f'Dealer has won!')
 	    break
 	  else:
 	    dealer.get_card(deck.deal())
 	
-	print(f"You're account: {player.money}")
+	print(f"You're account: {player.chips}")
 	
-	if player.money <= 0:
-	  print(f'You have no money! Game over!')
+	if player.chips <= 0:
+	  print(f'You have no chips! Game over!')
 	  break
 	else:
 	  if not ask('play again'):
