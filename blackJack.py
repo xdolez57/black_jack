@@ -166,10 +166,9 @@ while True:
 	if player.account.chips <= 0:
 	  print(f'You have no chips! Game over!')
 	  break
+	elif not ask('play again'):
+	  break
 	else:
-	  if not ask('play again'):
-	    break
-	  else:
-	    player.clear_cards()
-	    dealer.clear_cards()
+	  player.clear_cards()
+	  dealer.clear_cards()
 
