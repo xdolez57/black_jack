@@ -3,7 +3,7 @@ from random import shuffle
 suits = ('spades', 'hearts', 'clubs', 'diamonds')
 ranks = ('ace', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'jack',
 		 'queen', 'king')
-values = {'ace_low':1, 'two':2, 'three':3, 'four':4, 'five':5, 'six':6, 'seven':7, 'eight':8,
+values_dict = {'ace_low':1, 'two':2, 'three':3, 'four':4, 'five':5, 'six':6, 'seven':7, 'eight':8,
           'nine':9, 'ten':10, 'jack':10, 'queen':10, 'king':10, 'ace_high':11}
 
 CARDS_NUMBER = 2
@@ -56,7 +56,7 @@ class Player:
 
     def get_card(self, card):
         self.cards.append(card)
-        self.value = eval_cards(self.cards, values)
+        self.value = eval_cards(self.cards, values_dict)
 
     def clear_cards(self):
         self.cards = []
@@ -107,8 +107,8 @@ def eval_cards(cards, values):
         else:
             vals[0] += values[card.rank]
 
-    for i in range(1, aces+1):
-        vals.append(vals[0] + (i*(values['ace_high']-values['ace_low'])))
+    for ace in range(1, aces+1):
+        vals.append(vals[0] + (ace*(values['ace_high']-values['ace_low'])))
 
     best = vals[0]
 
