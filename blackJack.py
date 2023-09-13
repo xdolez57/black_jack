@@ -42,7 +42,7 @@ class Account:
 	def win_chips(self, chips):
 		self.chips += self.bet
 
-	def bet(self, chips):
+	def place_bet(self, chips):
 		self.bet = chips
 
 
@@ -54,7 +54,7 @@ class Player:
 	
 	def get_card(self, card):
 		self.cards.append(card)
-		self.value = eval_cards(self.cards)
+		self.value = eval_cards(self.cards, values)
 	
 	def clear_cards(self):
 		self.cards = []
@@ -70,7 +70,7 @@ class Player:
 			  if bet > self.account.chips:
 			    print(f'Not enough funds! You have only {self.account.chips}.')
 			  else:
-			    self.account.bet(bet)
+			    self.account.place_bet(bet)
 			    print()
 			    break
 	
