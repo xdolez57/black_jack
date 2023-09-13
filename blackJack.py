@@ -154,7 +154,7 @@ while True:
 	    print(f'Dealer is busted!')
 	    print(f"You've won! Scored {player.value}.")
 	    break
-	  elif dealer.value > player.value and dealer.value <= busted_value:
+	  elif dealer.value > player.value:
 	    player.account.lose_chips()
 	    print(f'Dealer has won!')
 	    break
