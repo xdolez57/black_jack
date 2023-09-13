@@ -66,7 +66,7 @@ class Player:
         while True:
             try:
                 bet = int(input('What is your bet? '))
-            except:
+            except ValueError:
                 print('Bet must be whole number!')
             else:
                 if bet > self.account.chips:
