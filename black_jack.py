@@ -24,6 +24,7 @@ CHIPS_INIT = 100
 BUSTED_VALUE = 21
 
 
+# pylint: disable-next=R0903
 class Card:
     """
     Playing card representation.
@@ -36,6 +37,7 @@ class Card:
         return f'{self.rank} of {self.suit}'
 
 
+# pylint: disable-next=R0903
 class Deck:
     """
     Card deck representation.
