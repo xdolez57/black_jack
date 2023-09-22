@@ -118,6 +118,10 @@ class Player(Hand):
         Hand.__init__(self)
 
     def ask_bet(self):
+        """
+        Ask player how many chips wants to bet.
+        Funds available are checked before chips are betted.
+        """
         while True:
             try:
                 bet = int(input('What is your bet? '))
@@ -133,6 +137,9 @@ class Player(Hand):
 
 
 def ask(question):
+    """
+    Asks player given question and expects yes or no as an answer.
+    """
     while True:
         answer = input(f'Do you want to {question}? [Y/N] ').upper()
 
@@ -144,6 +151,10 @@ def ask(question):
 
 
 def eval_cards(cards, values):
+    """
+    Function takes list of cards, dictionary of card values
+    and calculates total value of all cards in the list.
+    """
     vals = [0]
     aces = 0
     best = 0
