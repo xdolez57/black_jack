@@ -12,6 +12,9 @@ BUSTED_VALUE = 21
 
 
 class Card:
+    """
+    Playing card representation.
+    """
     def __init__(self, suit, rank):
         self.suit = suit
         self.rank = rank
@@ -21,6 +24,13 @@ class Card:
 
 
 class Deck:
+    """
+    Card deck representation.
+    
+    Constructor creates deck of 52 unique playing cards.
+    Method deal() takes one of the cards in the deck
+    and returns it.
+    """
     def __init__(self):
         self.cards = []
 
@@ -31,34 +41,60 @@ class Deck:
         shuffle(self.cards)
 
     def deal(self):
+        """
+		Deal one card from the deck.
+        """
         return self.cards.pop()
 
 
 class Account:
+    """
+    Chip account representation.
+    
+    Possible operations: place bet, win bet, lose bet.
+    """
     def __init__(self, chips = 0):
         self.chips = chips
         self.bet = 0
 
     def lose_chips(self):
+        """
+        Lose betted chips.
+        """
         self.chips -= self.bet
 
     def win_chips(self):
+        """
+        Win betted chips.
+        """
         self.chips += self.bet
 
     def place_bet(self, chips):
+        """
+        Set given number of chips as a bet.
+        """
         self.bet = chips
 
 
 class Hand:
+    """
+    Represents cards held by player or dealer.
+    """
     def __init__(self):
         self.cards = []
         self.value = 0
 
     def get_card(self, card):
+        """
+        Get a card and add it to the hand.
+        """
         self.cards.append(card)
         self.value = eval_cards(self.cards, values_dict)
 
     def clear_cards(self):
+        """
+        Remove all cards from the hand.
+        """
         self.cards = []
         self.value = 0
 
@@ -72,6 +108,11 @@ class Hand:
 
 
 class Player(Hand):
+    """
+    Player representation.
+    
+    Player holds cards in his hand and has its own chips account.
+    """
     def __init__(self, chips):
         self.account = Account(chips)
         Hand.__init__(self)
