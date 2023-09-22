@@ -1,3 +1,16 @@
+"""
+Black Jack card game
+
+A player plays Black Jack card game against computer dealer. The player starts with 100 chips from
+which can place a bet. The goal is to have total value of all cards on hand as close as possible to
+value 21. At the beginning, the player gets two cards from the deck and then opts even to take
+another card (hit) or to stop playing. The player can take as many cards as needs but once total
+value of all cards on player's hand exceeds value 21, player immediately loses (player is busted).
+After player stops hitting, it's dealer's turn. Whoever (player or dealer) is at the end closer to
+value 21 and isn't busted, wins. Jack, Queen and King has value 10, Ace has value 11 or 1, whatever
+is closer to 21 and doesn't cause loss.
+"""
+
 from random import shuffle
 
 suits = ('spades', 'hearts', 'clubs', 'diamonds')
