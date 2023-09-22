@@ -33,6 +33,7 @@ class Deck:
     def deal(self):
         return self.cards.pop()
 
+
 class Account:
     def __init__(self, chips = 0):
         self.chips = chips
@@ -48,9 +49,8 @@ class Account:
         self.bet = chips
 
 
-class Player:
-    def __init__(self, chips = 0):
-        self.account = Account(chips)
+class Hand:
+    def __init__(self):
         self.cards = []
         self.value = 0
 
@@ -61,6 +61,20 @@ class Player:
     def clear_cards(self):
         self.cards = []
         self.value = 0
+
+
+    def __str__(self):
+        if len(self.cards) == 0:
+            return 'no cards'
+
+        cards_list = [str(card) for card in self.cards]
+        return ', '.join(cards_list) + f' - best value: {self.value}'
+
+
+class Player(Hand):
+    def __init__(self, chips):
+        self.account = Account(chips)
+        Hand.__init__(self)
 
     def ask_bet(self):
         while True:
@@ -75,13 +89,6 @@ class Player:
                     self.account.place_bet(bet)
                     print()
                     break
-
-    def __str__(self):
-        if len(self.cards) == 0:
-            return 'no cards'
-
-        cards_list = [str(card) for card in self.cards]
-        return ', '.join(cards_list) + f' - best value: {self.value}'
 
 
 def ask(question):
@@ -122,7 +129,7 @@ def eval_cards(cards, values):
 
 print('Welcome in Black Jack game!')
 player = Player(CHIPS_INIT)
-dealer = Player(0)
+dealer = Hand()
 
 while True:
     deck = Deck()
